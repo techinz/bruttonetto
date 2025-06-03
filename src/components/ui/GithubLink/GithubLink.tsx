@@ -12,7 +12,7 @@ function GithubLink() {
 
     return (
         <a
-            href="https://github.com/techinz/steuerrechner"
+            href="https://github.com/techinz/bruttonetto"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View source code on GitHub"
