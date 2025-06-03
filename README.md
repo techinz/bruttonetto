@@ -23,10 +23,10 @@ This tool was developed to address limitations in existing German tax calculator
  
   <details> 
   <summary><h3>Screenshots</h3></summary>
-  ![Image](https://github.com/user-attachments/assets/83f6b170-8ca7-42eb-bc4f-2134acc11497)
-  ![Image](https://github.com/user-attachments/assets/9a37d79c-f838-4c28-8218-596f1c7b2628)
-  ![Image](https://github.com/user-attachments/assets/4f724f08-a7a2-483d-b130-78bff9311314)
-  ![Image](https://github.com/user-attachments/assets/144edf66-5d1f-4841-8c75-618c8a63cb5c)
+ https://github.com/user-attachments/assets/83f6b170-8ca7-42eb-bc4f-2134acc11497
+  https://github.com/user-attachments/assets/9a37d79c-f838-4c28-8218-596f1c7b2628
+  https://github.com/user-attachments/assets/4f724f08-a7a2-483d-b130-78bff9311314
+  https://github.com/user-attachments/assets/144edf66-5d1f-4841-8c75-618c8a63cb5c
   </details>
 </div>
 
