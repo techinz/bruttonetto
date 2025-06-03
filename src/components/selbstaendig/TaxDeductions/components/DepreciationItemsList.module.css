@@ -1,0 +1,181 @@
+.depreciationList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.depreciationItem {
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  border-left: 4px solid #3182CE;
+  padding: 1.25rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+:global(.dark) .depreciationItem {
+  background-color: #1A202C;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.nameInput {
+  font-size: 1.1rem;
+  font-weight: 500;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #E2E8F0;
+  color: #2D3748;
+  padding: 0.5rem 0;
+  width: 100%;
+  margin-right: 1rem;
+}
+
+.nameInput:focus {
+  outline: none;
+  border-color: #3182CE;
+}
+
+:global(.dark) .nameInput {
+  border-bottom: 2px solid #4A5568;
+  color: #E2E8F0;
+}
+
+:global(.dark) .nameInput:focus {
+  border-color: #63B3ED;
+}
+
+.itemDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-size: 0.9rem;
+  color: #4A5568;
+}
+
+:global(.dark) .formGroup label {
+  color: #A0AEC0;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.amountInput,
+.yearsInput,
+.percentInput,
+.dateInput,
+.methodSelect {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  background-color: #FFFFFF;
+  color: #2D3748;
+  font-size: 1rem;
+}
+
+:global(.dark) .amountInput,
+:global(.dark) .yearsInput,
+:global(.dark) .percentInput,
+:global(.dark) .dateInput,
+:global(.dark) .methodSelect {
+  border: 1px solid #4A5568;
+  background-color: #2D3748;
+  color: #E2E8F0;
+}
+
+.amountInput,
+.percentInput {
+  padding-right: 2rem;
+}
+
+.inputWithUnit {
+  position: relative;
+  width: 100%;
+}
+
+.unitSymbol {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4A5568;
+  pointer-events: none;
+}
+
+.dateInput::-webkit-calendar-picker-indicator {
+  filter: none;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+:global(.dark) .dateInput::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 2px dashed #4A5568;
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: #718096;
+  font-weight: 500;
+  font-size: 0.95rem;
+  width: 100%;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.75rem;
+}
+
+.addBtn:hover {
+  border-color: #63B3ED;
+  color: #90CDF4;
+  background: #2A4365;
+}
+
+.addBtn svg {
+  color: #63B3ED;
+}
+
+:global(.dark) .addBtn {
+  border-color: #4A5568;
+  color: #E2E8F0;
+}
+
+:global(.dark) .addBtn:hover {
+  border-color: #63B3ED;
+  color: #90CDF4;
+  background: #2A4365;
+}
+
+:global(.dark) .addBtn svg {
+  color: #63B3ED;
+}
+
+@media (max-width: 768px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,122 @@
+.spouseIncomeSection {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    animation: slideDown 0.3s ease-out forwards;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.spouseIncomeSection label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.inputGroup {
+    position: relative;
+    width: 100%;
+}
+
+.inputGroup input {
+    width: 100%;
+    padding: 0.8rem 2rem 0.8rem 1rem;
+    font-size: 1.2rem;
+    border: 2px solid;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.currency {
+    position: absolute;
+    right: 12px;
+    top: 20%;
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.inputHint {
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+}
+
+:global(.light) .spouseIncomeSection label {
+    color: #4A5568;
+}
+
+:global(.light) .inputGroup input {
+    border-color: #E2E8F0;
+    background-color: #FAFBFC;
+    color: #2D3748;
+}
+
+:global(.light) .inputGroup input:focus {
+    border-color: #90CDF4;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+    outline: none;
+    background: #fff;
+}
+
+:global(.light) .currency {
+    color: #4A5568;
+}
+
+:global(.light) .inputHint {
+    color: #718096;
+}
+
+:global(.dark) .spouseIncomeSection label {
+    color: #E2E8F0;
+}
+
+:global(.dark) .inputGroup input {
+    border-color: #4A5568;
+    background-color: #1A202C;
+    color: #E2E8F0;
+}
+
+:global(.dark) .inputGroup input:focus {
+    border-color: #63B3ED;
+    box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.25);
+    outline: none;
+    background: #2D3748;
+}
+
+:global(.dark) .currency {
+    color: #A0AEC0;
+}
+
+:global(.dark) .inputHint {
+    color: #A0AEC0;
+}
+
+@media (max-width: 768px) {
+    .spouseIncomeSection label {
+        font-size: 0.9rem;
+    }
+
+    .inputGroup input {
+        padding: 0.7rem 1.8rem 0.7rem 0.8rem;
+        font-size: 1.1rem;
+    }
+
+    .currency {
+        right: 10px;
+        font-size: 1rem;
+    }
+
+    .inputHint {
+        font-size: 0.8rem;
+    }
+}

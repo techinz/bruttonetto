@@ -1,0 +1,32 @@
+.backButton {
+    left: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: transparent;
+    z-index: 2;
+}
+
+:global(.light) .backButton {
+    color: #4A5568;
+}
+
+:global(.light) .backButton:hover {
+    background-color: #EDF2F7;
+    color: #2D3748;
+}
+
+:global(.dark) .backButton {
+    color: #E2E8F0;
+}
+
+:global(.dark) .backButton:hover {
+    background-color: #4A5568;
+    color: #F7FAFC;
+}

@@ -1,0 +1,75 @@
+.deleteButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #FEE2E2;
+    color: #E53E3E;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.deleteButton:hover {
+    background: #FCA5A5;
+    transform: scale(1.05);
+}
+
+.deleteButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.4);
+}
+
+/* sizes */
+.small {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+}
+
+.medium {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+}
+
+.large {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+}
+
+/* Dark theme support */
+:global(.dark) .deleteButton {
+    background: #63171B;
+    color: #FEB2B2;
+}
+
+:global(.dark) .deleteButton:hover {
+    background: #9B2C2C;
+}
+
+:global(.dark) .deleteButton:focus {
+    box-shadow: 0 0 0 2px rgba(254, 178, 178, 0.4);
+}
+
+@media (max-width: 640px) {
+    .small {
+        width: 14px;
+        height: 14px;
+        min-width: 14px;
+    }
+
+    .medium {
+        width: 26px;
+        height: 26px;
+        min-width: 26px;
+    }
+
+    .large {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+    }
+}

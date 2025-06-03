@@ -1,0 +1,56 @@
+.section {
+  margin-bottom: 2rem;
+  border: 1px solid #EDF2F7;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.section:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.section h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2C5282;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #EDF2F7;
+  position: relative;
+}
+
+.section h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #3182CE, #4299E1);
+  border-radius: 2px;
+}
+
+:global(.dark) .section {
+  border-color: #4A5568;
+  background: #2D3748;
+}
+
+:global(.dark) .section:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+:global(.dark) .section h3 {
+  color: #90CDF4;
+  border-bottom-color: #4A5568;
+}
+
+:global(.dark) .section h3::after {
+  background: linear-gradient(90deg, #4299E1, #63B3ED);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 1rem;
+  }
+}

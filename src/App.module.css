@@ -1,0 +1,226 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  transition: all 0.3s ease;
+}
+
+.container.light {
+  color: #2D3748;
+  background: linear-gradient(135deg, #FFF 0%, #ADC4DB 100%);
+}
+
+.container.dark {
+  color: #E2E8F0;
+  background: linear-gradient(135deg, #1A202C 0%, #171923 100%);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.light .header {
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.dark .header {
+  background-color: #2D3748;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.02em;
+  background: linear-gradient(45deg, #956fff, #38afaf);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #53FEFE;
+  /* fallback color for browsers that don't support gradients (just in case) */
+  display: inline-block;
+}
+
+.headerLink {
+  text-decoration: none;
+  color: inherit;
+  background: inherit;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.headerControls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* theme toggle */
+.themeToggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.light .themeToggle {
+  color: #4A5568;
+  background-color: #EDF2F7;
+}
+
+.light .themeToggle:hover {
+  background-color: #E2E8F0;
+  color: #2D3748;
+}
+
+.dark .themeToggle {
+  color: #E2E8F0;
+  background-color: #4A5568;
+}
+
+.dark .themeToggle:hover {
+  background-color: #718096;
+  color: #F7FAFC;
+}
+
+/* language selector */
+.languageSelector {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.languageSelector button {
+  background-color: transparent;
+  border-radius: 6px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.light .languageSelector button {
+  border: 1px solid #E2E8F0;
+  color: #4A5568;
+}
+
+.light .languageSelector button:hover {
+  background-color: #F7FAFC;
+  border-color: #CBD5E0;
+}
+
+.light .languageSelector button.active {
+  background-color: #EBF8FF;
+  border-color: #90CDF4;
+  color: #3182CE;
+}
+
+.dark .languageSelector button {
+  border: 1px solid #4A5568;
+  color: #CBD5E0;
+}
+
+.dark .languageSelector button:hover {
+  background-color: #2D3748;
+  border-color: #718096;
+}
+
+.dark .languageSelector button.active {
+  background-color: #2C5282;
+  border-color: #63B3ED;
+  color: #F7FAFC;
+}
+
+/* content */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+}
+
+/* progress bar */
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  transition: all 0.3s ease;
+}
+
+.light .progress {
+  background-color: #E2E8F0;
+}
+
+.dark .progress {
+  background-color: #4A5568;
+}
+
+.progressBar {
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.light .progressBar {
+  background: linear-gradient(90deg, #3182CE, #00B5D8);
+}
+
+.dark .progressBar {
+  background: linear-gradient(90deg, #90CDF4, #4FD1C5);
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo {
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .headerControls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .content {
+    padding: 1.5rem 1rem;
+    margin-bottom: 6rem;
+  }
+
+  .logoContainer {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,540 @@
+.container {
+  position: relative;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 16px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 5px 10px rgba(0, 0, 0, 0.02);
+  animation: slideIn 0.6s ease-out forwards;
+  transition: all 0.3s ease;
+}
+
+.container.light {
+  background: #fff;
+}
+
+.container.dark {
+  background: #2D3748;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  flex-grow: 1;
+  margin: 0;
+}
+
+.light .title {
+  color: #2D3748;
+}
+
+.dark .title {
+  color: #F7FAFC;
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.light .subtitle {
+  color: #718096;
+}
+
+.dark .subtitle {
+  color: #A0AEC0;
+}
+
+.subtitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 3px;
+  width: 80px;
+  border-radius: 2px;
+}
+
+.light .subtitle::after {
+  background: linear-gradient(90deg, #90CDF4, #63B3ED);
+}
+
+.dark .subtitle::after {
+  background: linear-gradient(90deg, #4299E1, #3182CE);
+}
+
+.subtitle strong {
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.light .subtitle strong {
+  color: #4A5568;
+}
+
+.dark .subtitle strong {
+  color: #E2E8F0;
+}
+
+.contributionsSection {
+  margin-bottom: 2.5rem;
+}
+
+.contributionsSection h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  font-weight: 600;
+  position: relative;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+.light .contributionsSection h3 {
+  color: #2C5282;
+  border-bottom-color: #EDF2F7;
+}
+
+.dark .contributionsSection h3 {
+  color: #90CDF4;
+  border-bottom-color: #4A5568;
+}
+
+.contributionsSection h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  width: 40px;
+}
+
+.light .contributionsSection h3::before {
+  background: #3182CE;
+}
+
+.dark .contributionsSection h3::before {
+  background: #90CDF4;
+}
+
+.contributionItem {
+  display: flex;
+  min-height: 110px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem .5rem;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.light .contributionItem:hover {
+  background-color: #F7FAFC;
+  border-color: #EDF2F7;
+}
+
+.dark .contributionItem:hover {
+  background-color: #4A5568;
+  border-color: #2D3748;
+}
+
+.checkboxWrapper {
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.light .checkbox {
+  accent-color: #3182CE;
+}
+
+.dark .checkbox {
+  accent-color: #90CDF4;
+}
+
+.checkboxWrapper label {
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+
+.light .checkboxWrapper label {
+  color: #4A5568;
+}
+
+.dark .checkboxWrapper label {
+  color: #E2E8F0;
+}
+
+.infoTag {
+  position: absolute;
+  margin-bottom: 4rem;
+
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.light .infoTag {
+  background-color: #EBF8FF;
+  color: #2B6CB0;
+}
+
+.dark .infoTag {
+  background-color: #2C5282;
+  color: #BEE3F8;
+}
+
+.valueInputs {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.percentInput {
+  width: 65px;
+  padding: 0.6rem;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 6px;
+  font-size: 1rem;
+  text-align: right;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.light .percentInput {
+  border-color: #E2E8F0;
+  background: #FAFBFC;
+  color: #2D3748;
+}
+
+.light .percentInput:focus {
+  border-color: #90CDF4;
+  box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.1);
+  outline: none;
+  background: #fff;
+}
+
+.dark .percentInput {
+  border-color: #4A5568;
+  background: #2D3748;
+  color: #E2E8F0;
+}
+
+.dark .percentInput:focus {
+  border-color: #63B3ED;
+  box-shadow: 0 0 0 2px rgba(144, 205, 244, 0.2);
+  outline: none;
+  background: #1A202C;
+}
+
+.percentSymbol,
+.equals,
+.euroSymbol {
+  font-weight: 500;
+}
+
+.light .percentSymbol,
+.light .equals,
+.light .euroSymbol {
+  color: #4A5568;
+}
+
+.dark .percentSymbol,
+.dark .equals,
+.dark .euroSymbol {
+  color: #A0AEC0;
+}
+
+.equals {
+  margin: 0;
+}
+
+.amountInput {
+  width: 90px;
+  padding: 0.6rem;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 6px;
+  font-size: 1rem;
+  text-align: right;
+  font-weight: 500;
+}
+
+.light .amountInput {
+  border-color: #E2E8F0;
+  background-color: #F7FAFC;
+  color: #4A5568;
+}
+
+.dark .amountInput {
+  border-color: #4A5568;
+  background-color: #2D3748;
+  color: #A0AEC0;
+}
+
+.navigationButtons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 3rem;
+}
+
+.backButton {
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.light .backButton {
+  background: #EDF2F7;
+  color: #4A5568;
+}
+
+.light .backButton:hover {
+  background: #E2E8F0;
+}
+
+.dark .backButton {
+  background: #4A5568;
+  color: #E2E8F0;
+}
+
+.dark .backButton:hover {
+  background: #718096;
+}
+
+.nextButton {
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.light .nextButton {
+  background: linear-gradient(135deg, #3182CE 0%, #2C5282 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.15);
+}
+
+.light .nextButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(49, 130, 206, 0.2);
+}
+
+.dark .nextButton {
+  background: linear-gradient(135deg, #4299E1 0%, #3182CE 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.25);
+}
+
+.dark .nextButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(66, 153, 225, 0.35);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .contributionItem {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .valueInputs {
+    margin-top: 0.8rem;
+    margin-left: 1.8rem;
+    width: calc(100% - 1.8rem);
+  }
+
+  .navigationButtons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nextButton,
+  .backButton {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.limitHint {
+  display: flex;
+  padding: 0.6rem 0.8rem;
+  margin-left: 20px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.limitHint span {
+  margin: auto;
+  font-size: 0.85rem;
+}
+
+.light .limitHint {
+  background-color: #EBF8FF;
+  color: #2C5282;
+  border-left: 3px solid #4299E1;
+}
+
+.dark .limitHint {
+  background-color: #2A4365;
+  color: #BEE3F8;
+  border-left: 3px solid #4299E1;
+}
+
+.infoIcon {
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+
+.optionHint {
+  position: absolute;
+  margin-top: 5rem;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.light .checkboxLabel {
+  color: #4A5568;
+}
+
+.dark .checkboxLabel {
+  color: #A0AEC0;
+}
+
+.optionCheckbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.light .optionCheckbox {
+  accent-color: #3182CE;
+}
+
+.dark .optionCheckbox {
+  accent-color: #90CDF4;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .limitHint {
+    width: 80%;
+    margin: 0.6rem auto;
+    font-size: 0.8rem;
+  }
+
+  .limitHint span {
+    font-size: 0.8rem;
+  }
+
+  .infoTag {
+    display: inline-block;
+    margin-left: 0;
+    font-size: 0.7rem;
+  }
+
+  .optionHint {
+    position: relative;
+    margin-top: .5rem;
+  }
+}
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.spacer {
+  width: 40px;
+}
+
+@media (max-width: 768px) {
+  .formHeader {
+    margin-bottom: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .spacer {
+    width: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+  }
+}

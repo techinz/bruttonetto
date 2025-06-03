@@ -1,0 +1,32 @@
+.languageSelector {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.languageSelector button {
+    width: 2rem;
+    padding: 0;
+    border-radius: 25%;
+    border: 2px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.languageSelector button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.languageSelector button.active {
+    border-color: #3182CE;
+    box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.4);
+}
+
+.flag {
+    font-size: 1.2rem;
+}

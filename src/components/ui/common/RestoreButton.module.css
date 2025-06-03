@@ -1,0 +1,57 @@
+.restoreButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: #F7FAFC;
+    color: #4A5568;
+    border: 1px solid #E2E8F0;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.restoreButton:hover {
+    background: #EDF2F7;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.restoreButton:active {
+    transform: translateY(0);
+}
+
+:global(.dark) .restoreButton {
+    background: #2D3748;
+    color: #E2E8F0;
+    border-color: #4A5568;
+}
+
+:global(.dark) .restoreButton:hover {
+    background: #4A5568;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.restoreButton svg {
+    width: 18px;
+    height: 18px;
+    color: #3182CE;
+}
+
+:global(.dark) .restoreButton svg {
+    color: #63B3ED;
+}
+
+@media (max-width: 640px) {
+    .restoreButton {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .restoreButton svg {
+        width: 16px;
+        height: 16px;
+    }
+}

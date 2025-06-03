@@ -1,0 +1,68 @@
+.splittingOption {
+    width: 100%;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.taxTypeToggle {
+    display: flex;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    border: 2px solid #3182CE;
+}
+
+.taxTypeButton {
+    flex: 1;
+    border: none;
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+:global(.light) .taxTypeButton {
+    background-color: #EDF2F7;
+    color: #4A5568;
+}
+
+:global(.light) .taxTypeButton:hover:not(.active) {
+    background-color: #E2E8F0;
+}
+
+:global(.light) .taxTypeButton.active {
+    background-color: #4299E1;
+    color: white;
+}
+
+:global(.dark) .taxTypeButton {
+    background-color: #2D3748;
+    color: #A0AEC0;
+}
+
+:global(.dark) .taxTypeButton:hover:not(.active) {
+    background-color: #4A5568;
+}
+
+:global(.dark) .taxTypeButton.active {
+    background-color: #3182CE;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .taxTypeButton {
+        padding: 0.7rem 0.5rem;
+        font-size: 0.85rem;
+    }
+}
