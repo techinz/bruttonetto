@@ -470,7 +470,6 @@ const TaxDeductions: React.FC<TaxDeductionsProps> = ({
       </DeductionsSection>
 
       <div className={styles.navigationButtons}>
-        <div></div>
         <button type="submit" className={styles.nextBtn}>
           {t('Berechnen')}
         </button>

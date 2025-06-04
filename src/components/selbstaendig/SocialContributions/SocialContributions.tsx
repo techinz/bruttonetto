@@ -235,7 +235,6 @@ const SocialContributions = ({ socialContributions, brutto, onSubmit, onBack }: 
         </div>
 
         <div className={styles.navigationButtons}>
-          <div></div>
           <button type="submit" className={styles.nextButton}>
             {t('Weiter')}
           </button>

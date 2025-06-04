@@ -57,7 +57,6 @@
 .navigationButtons {
   display: flex;
   justify-content: flex-end;
-  margin-top: 2rem;
 }
 
 .nextBtn {
@@ -69,7 +68,6 @@
   font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 1rem;
   align-self: flex-end;
   transition: all 0.2s;
   box-shadow: 0 4px 12px rgba(49, 130, 206, 0.15);
