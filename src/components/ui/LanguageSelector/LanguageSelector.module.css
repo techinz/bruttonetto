@@ -29,4 +29,9 @@
 
 .flag {
     font-size: 1.2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.5rem;
 }
