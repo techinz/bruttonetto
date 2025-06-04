@@ -3,6 +3,8 @@ export type DeductionSection = 'monthly' | 'oneTime' | 'depreciation';
 export interface DeductionItem {
     amount: number;
     type: string;
+    hasVat: boolean;
+    vatAmount: number;
 }
 
 export interface BueroData {
@@ -11,12 +13,16 @@ export interface BueroData {
     wholeSqm: number;
     officeSqm: number;
     isCalculated: boolean;
+    hasVat: boolean;
+    vatAmount: number;
 }
 
 export interface CustomDeduction {
     name: string;
     amount: number;
     type: string;
+    hasVat: boolean;
+    vatAmount: number;
 }
 
 export interface MonthlyDeductions {
@@ -55,6 +61,8 @@ export interface DeletedDeductions {
 
 export interface TaxDeductionsProps {
     deductions: Deductions;
+    isVatPayer: boolean;
+    vatPercent: number;
     onSubmit: (deductions: Deductions) => void;
     onBack: () => void;
 }

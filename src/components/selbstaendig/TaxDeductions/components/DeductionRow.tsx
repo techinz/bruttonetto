@@ -4,6 +4,7 @@ import styles from './DeductionRow.module.css';
 import type { DeductionRowProps } from '../../../../types/components/selbstaendig/taxDeductions/deductionRow';
 import { parseNumber } from '../../../../utils';
 import DeleteButton from '../../../ui/common/DeleteButton';
+import VatCheckbox from './VatCheckbox';
 
 /**
  * Display a row of deduction information
@@ -11,6 +12,8 @@ import DeleteButton from '../../../ui/common/DeleteButton';
  * @param {string} label - The label for the deduction
  * @param {number} amount - The amount of the deduction
  * @param {string} type - The type of deduction
+ * @param {boolean} hasVat - Whether the expense is eligible for VAT deduction
+ * @param {boolean} isVatPayer - Whether the user is a VAT payer
  * @param {Array<{ value: string, label: string }>} deductionTypes - List of deduction types
  * @param {function} onChange - Callback function to handle changes in the input fields
  * @param {function} onDelete - Callback function to handle deletion of the row
@@ -23,13 +26,15 @@ const DeductionRow: React.FC<DeductionRowProps> = ({
     step,
     amount,
     type,
+    hasVat,
+    isVatPayer,
     deductionTypes = [],
     onChange,
     onDelete,
     children
 }) => {
     const { t } = useTranslation();
-
+    console.log(hasVat)
     return (
         <div className={styles.row}>
             {!children ? (
@@ -47,7 +52,7 @@ const DeductionRow: React.FC<DeductionRowProps> = ({
                                 max={max}
                                 step={step}
                                 value={amount.toString()}
-                                onChange={e => onChange({ amount: parseNumber(e.target.value, min, max), type })}
+                                onChange={e => onChange({ amount: parseNumber(e.target.value, min, max), type, hasVat })}
                                 className={styles.amountInput}
                             />
                             <span className={styles.currencySymbol}>€</span>
@@ -58,7 +63,7 @@ const DeductionRow: React.FC<DeductionRowProps> = ({
                         {deductionTypes.length > 0 && (
                             <select
                                 value={type}
-                                onChange={e => onChange({ amount, type: e.target.value })}
+                                onChange={e => onChange({ amount, type: e.target.value, hasVat })}
                                 className={styles.typeSelect}
                             >
                                 {deductionTypes.map(opt => (
@@ -69,6 +74,14 @@ const DeductionRow: React.FC<DeductionRowProps> = ({
                             </select>
                         )}
                     </div>
+
+                    {/* VAT checkbox, only visible for VAT payers */}
+                    {isVatPayer && (
+                        <VatCheckbox
+                            checked={hasVat}
+                            onChange={() => onChange({ amount, type, hasVat: !hasVat })}
+                        />
+                    )}
 
                     {onDelete && (
                         <div className={styles.actionField}>
@@ -83,7 +96,17 @@ const DeductionRow: React.FC<DeductionRowProps> = ({
                 // complex components view
                 <div className={styles.complexRow}>
                     <div className={styles.childrenContainer}>
-                        <h4 className={styles.defaultLabel}>{t(label)}</h4>
+                        <div className={styles.complexHeader}>
+                            <h4 className={styles.defaultLabel}>{t(label)}</h4>
+
+                            {/* VAT checkbox, only visible for VAT payers */}
+                            {isVatPayer && (
+                                <VatCheckbox
+                                    checked={hasVat || false}
+                                    onChange={() => onChange({ hasVat: !hasVat })}
+                                />
+                            )}
+                        </div>
                         {children}
                     </div>
 

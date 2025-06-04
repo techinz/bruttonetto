@@ -31,6 +31,8 @@ function AppContent() {
   const { theme, toggleTheme } = React.useContext(ThemeContext);
   const [isMarried, setIsMarried] = useState(false);
   const [spouseIncome, setSpouseIncome] = useState(0);
+  const [isVatPayer, setIsVatPayer] = useState<boolean>(true);
+  const [vatPercent, setVatPercent] = useState<number>(19);
   const [activeTab, setActiveTab] = useState<TabType>('selbstaendig');
 
   // default theme - dark
@@ -41,10 +43,12 @@ function AppContent() {
   }, []);
 
   // navigation handlers
-  const handleBruttoSubmit = (value: number, isMarried: boolean, spouseIncome: number) => {
-    updateBrutto(value, isMarried, spouseIncome);
+  const handleBruttoSubmit = (value: number, isMarried: boolean, spouseIncome: number, isVatPayer: boolean, vatPercent: number) => {
+    updateBrutto(value, isMarried, spouseIncome, isVatPayer, vatPercent);
     setIsMarried(isMarried);
     setSpouseIncome(spouseIncome);
+    setIsVatPayer(isVatPayer);
+    setVatPercent(vatPercent);
     goToNextStep();
   };
 
@@ -111,6 +115,8 @@ function AppContent() {
             {currentStep === 'deductions' && (
               <TaxDeductions
                 deductions={taxDeductions}
+                isVatPayer={isVatPayer}
+                vatPercent={vatPercent}
                 onSubmit={handleDeductionsSubmit}
                 onBack={handleBack}
               />

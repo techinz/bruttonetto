@@ -335,6 +335,7 @@
   font-weight: 700;
   color: #38A169;
   margin: 0.3rem 0;
+  text-align: center;
 }
 
 .incomeLabel {
@@ -600,6 +601,61 @@
   gap: 1rem;
 }
 
+.vatDetailRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #EDF2F7;
+}
+
+/* for positive VAT (payment to tax office) */
+.vatDetailRow .taxValue strong.positive {
+  color: #E53E3E;
+}
+
+/* for negative VAT (refund from tax office) */
+.vatDetailRow .taxValue strong.negative {
+  color: #38A169;
+}
+
+.dark .vatDetailRow {
+  border-bottom: 1px solid #4A5568;
+}
+
+.vatAddition {
+  display: block;
+  font-size: 0.85rem;
+  color: #805AD5;
+  margin-top: 0.25rem;
+  text-align: center;
+}
+
+:global(.dark) .vatAddition {
+  color: #B794F4;
+}
+
+.vatLabel {
+  font-size: 0.7rem;
+  display: block;
+  margin-bottom: 0.15rem;
+  font-weight: normal;
+  line-height: 0.2rem;
+}
+
+.vatPayment {
+  color: #E53E3E;
+}
+
+.vatRefund {
+  color: #38A169;
+}
+
+/* Make sure we don't have nested vatAddition spans */
+.vatAddition .vatAddition {
+  display: none;
+}
+
 @media (max-width: 640px) {
   .navigationButtons {
     flex-direction: column;
@@ -737,6 +793,11 @@
 
   .taxPeriod {
     font-size: 0.8rem;
+  }
+
+  .vatDetailRow {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 

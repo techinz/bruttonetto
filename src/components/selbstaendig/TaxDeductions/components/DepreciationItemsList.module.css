@@ -23,6 +23,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+  gap: 0.75rem;
 }
 
 .nameInput {
@@ -33,8 +34,8 @@
   border-bottom: 2px solid #E2E8F0;
   color: #2D3748;
   padding: 0.5rem 0;
-  width: 100%;
-  margin-right: 1rem;
+  flex: 1;
+  min-width: 0;
 }
 
 .nameInput:focus {
@@ -172,6 +173,28 @@
 
 :global(.dark) .addBtn svg {
   color: #63B3ED;
+}
+
+.itemHeader :global(.vatField) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.25rem;
+}
+
+@media (max-width: 640px) {
+  .itemHeader {
+    flex-wrap: wrap;
+  }
+
+  .nameInput {
+    flex-basis: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .itemHeader :global(.vatField) {
+    margin-right: auto;
+  }
 }
 
 @media (max-width: 768px) {

@@ -6,18 +6,21 @@ import { parseNumber } from '../../../../utils';
 import { INPUTS_DATA } from '../../../../config/config';
 import DeleteButton from '../../../ui/common/DeleteButton';
 import type { DepreciationItemsListProps } from '../../../../types/components/selbstaendig/taxDeductions/depreciationItemsList';
+import VatCheckbox from './VatCheckbox';
 
 
 /**
  * Display a list of depreciation items
  * 
  * @param {Array<{ name: string, amount: number, purchaseDate: string, usefulLifeYears: number, method: string, degressiveRate?: number }>} items - The list of items to display
+ * @param {boolean} isVatPayer - Whether the user is a VAT payer
  * @param {function} onAdd - Callback function to handle adding a new item
  * @param {function} onRemove - Callback function to handle removing an item
  * @param {function} onChange - Callback function to handle changes in the input fields
  */
 const DepreciationItemsList: React.FC<DepreciationItemsListProps> = ({
     items,
+    isVatPayer,
     onAdd,
     onRemove,
     onChange
@@ -36,6 +39,15 @@ const DepreciationItemsList: React.FC<DepreciationItemsListProps> = ({
                             onChange={(e) => onChange(index, 'name', e.target.value)}
                             className={styles.nameInput}
                         />
+
+                        {/* VAT checkbox, only visible for VAT payers */}
+                        {isVatPayer && (
+                            <VatCheckbox
+                                checked={item.hasVat || false}
+                                onChange={() => onChange(index, 'hasVat', !item.hasVat)}
+                            />
+                        )}
+
                         <DeleteButton
                             onClick={() => onRemove(index)}
                             size="medium"

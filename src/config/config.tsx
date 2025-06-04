@@ -61,15 +61,17 @@ export const DEFAULT_SOCIAL_CONTRIBUTIONS: SocialContributionsData = {
 
 export const DEFAULT_TAX_DEDUCTIONS: Deductions = {
     monthly: {
-        krankenversicherung: { amount: 800, type: 'full' }, // will be copied from social contributions if checked
+        krankenversicherung: { amount: 800, type: 'full', hasVat: false, vatAmount: 0 }, // will be copied from social contributions if checked
         buero: {
             amount: 0,
             warmmiete: 0,
             wholeSqm: 0,
             officeSqm: 0,
-            isCalculated: false
+            isCalculated: false,
+            hasVat: false,
+            vatAmount: 0
         },
-        internet: { amount: 50, type: 'half' },
+        internet: { amount: 50, type: 'half', hasVat: false, vatAmount: 0 },
         custom: []
     },
     oneTime: {

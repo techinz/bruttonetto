@@ -1,18 +1,9 @@
-import { DEFAULT_SOCIAL_CONTRIBUTIONS, ONE_BILLION } from '../config/config';
+import { DEFAULT_SOCIAL_CONTRIBUTIONS } from '../config/config';
 import type { CalculationResults } from '../types/services/calculatorService';
 import type { CustomDeduction, Deductions, DepreciationDeductions, DepreciationItem, MonthlyDeductions, OneTimeDeductions } from '../types/components/selbstaendig/taxDeductions/taxDeductions';
-import { round, validateSocialContributionBrutto, validateSocialContributionLimits } from '../utils';
+import { believeYouCanAndYoureHalfwayThere, extractVatFromGross, validateSocialContributionBrutto, validateSocialContributionLimits } from '../utils';
 import type { SocialContributionItem, SocialContributionsData } from '../types/components/selbstaendig/socialContributions/socialContributions';
 
-function believeYouCanAndYoureHalfwayThere(value: number, roundDecimals: number = 2, min: number = 0, max: number = ONE_BILLION): number {
-  // Function to ensure the value is safe for display
-
-  if (isNaN(value) || value === null || value === undefined) {
-    return 0;
-  }
-
-  return round(Math.min(Math.max(value, min), max), roundDecimals);
-}
 
 export const calculateResults = (
   brutto: number,
@@ -20,6 +11,8 @@ export const calculateResults = (
   spouseYearlyIncome: number,
   socialContributions: SocialContributionsData,
   deductions: Deductions,
+  isVatPayer: boolean,
+  vatPercent: number
 ): CalculationResults => {
   // calculate amount left after social contributions
   const socialContributionsTotal = [
@@ -35,6 +28,23 @@ export const calculateResults = (
   const depreciationDeductions = calculateDepreciationDeductions(deductions.depreciation);
   const totalDeductionsMonthly = monthlyDeductions + (oneTimeDeductions / 12) + depreciationDeductions;
 
+  // calculate VAT if applicable
+  let vatToPayYearly = 0;
+  let outputVatYearly = 0;
+  if (isVatPayer) {
+    // calculate output VAT (collected on income) - how much you have to originally pay to the tax office from your brutto income
+    outputVatYearly = (brutto * 12) * (vatPercent / 100);
+
+    // calculate input VAT (paid on expenses that can be reclaimed) - how much you can reclaim from the tax office
+    const inputVatYearly = calculateInputVatYearly(
+      deductions,
+      vatPercent
+    );
+
+    // net VAT position (positive = pay to tax office, negative = refund)
+    vatToPayYearly = outputVatYearly - inputVatYearly;
+  }
+
   const taxableIncomeMonthly = brutto - totalDeductionsMonthly;
 
   // calculate tax
@@ -42,7 +52,12 @@ export const calculateResults = (
   const yearlyTax = calculateIncomeTax(yearlyIncome, isMarried, spouseYearlyIncome);
   const monthlyTax = yearlyTax / 12;
 
-  const netto = afterSocialContributions - monthlyTax;
+  // netto calculation considering VAT for VAT payers
+  // const netto = isVatPayer
+  //   ? afterSocialContributions - monthlyTax - (vatToPayYearly / 12)
+  //   : afterSocialContributions - monthlyTax;
+  const netto = afterSocialContributions - monthlyTax
+
   const percentLoss = ((brutto - netto) / brutto) * 100;
 
   return {
@@ -50,7 +65,11 @@ export const calculateResults = (
     afterSocialContributions: believeYouCanAndYoureHalfwayThere(afterSocialContributions),
     taxableIncome: believeYouCanAndYoureHalfwayThere(taxableIncomeMonthly),
     steuer: believeYouCanAndYoureHalfwayThere(monthlyTax),
-    percentLoss: believeYouCanAndYoureHalfwayThere(percentLoss, 2, 0, 100)
+    percentLoss: believeYouCanAndYoureHalfwayThere(percentLoss, 2, 0, 100),
+    outputVat: isVatPayer ? believeYouCanAndYoureHalfwayThere(outputVatYearly) : 0,
+    vatToPay: isVatPayer ? believeYouCanAndYoureHalfwayThere(vatToPayYearly) : 0,
+    isVatPayer,
+    vatPercent
   };
 };
 
@@ -185,6 +204,8 @@ export const calculateOneTimeDeductions = (oneTimeDeductions: OneTimeDeductions)
 
 export const calculateSingleTax = (yearlyIncome: number): number => {
   // German income tax calculation based on latest 2025 formulas from https://www.bmf-steuerrechner.de/ekst/eingabeformekst.xhtml?ekst-result=true
+  // Grundfreibetrag is included in the formulas
+
   let tax = 0;
 
   if (yearlyIncome <= 12096) {
@@ -247,4 +268,93 @@ export const getDefaultSocialContributionsWithBrutto = (brutto: number) => {
       };
     }, {})
   };
+};
+
+/**
+ * Helper func to calculate input VAT that can be reclaimed
+ * This is based on expenses entered by the user in tax deductions and their VAT eligibility (checkbox hasVat)
+ */
+export const calculateInputVatYearly = (
+  deductions: Deductions,
+  vatPercent: number
+): number => {
+  let totalInputVat = 0;
+  const vatFactor = vatPercent / 100;
+
+  // monthly deductions with VAT eligibility
+  if (deductions.monthly) {
+    // default deductions
+    if (deductions.monthly.krankenversicherung?.hasVat) {
+      const grossAmount = deductions.monthly.krankenversicherung.amount * 12;
+      const deductibleAmount = deductions.monthly.krankenversicherung.type === 'half'
+        ? grossAmount * 0.5
+        : grossAmount;
+      const itemVat = extractVatFromGross(deductibleAmount, vatFactor);
+      deductions.monthly.krankenversicherung.vatAmount = itemVat;
+      totalInputVat += itemVat;
+    }
+
+    if (deductions.monthly.buero?.hasVat) {
+      const grossAmount = deductions.monthly.buero.amount * 12;
+      const itemVat = extractVatFromGross(grossAmount, vatFactor);
+      deductions.monthly.buero.vatAmount = itemVat;
+      totalInputVat += itemVat;
+    }
+
+    if (deductions.monthly.internet?.hasVat) {
+      const grossAmount = deductions.monthly.internet.amount * 12;
+      const deductibleAmount = deductions.monthly.internet.type === 'half'
+        ? grossAmount * 0.5
+        : grossAmount;
+      const itemVat = extractVatFromGross(deductibleAmount, vatFactor);
+      deductions.monthly.internet.vatAmount = itemVat;
+      totalInputVat += itemVat;
+    }
+
+    // custom monthly deductions
+    if (deductions.monthly.custom?.length) {
+      deductions.monthly.custom.forEach(item => {
+        if (item.hasVat) {
+          const grossAmount = item.amount * 12;
+          const deductibleAmount = item.type === 'half' ? grossAmount * 0.5 : grossAmount;
+          const itemVat = extractVatFromGross(deductibleAmount, vatFactor);
+          item.vatAmount = itemVat;
+          totalInputVat += itemVat;
+        }
+      });
+    }
+  }
+
+  // one-time deductions
+  if (deductions.oneTime?.custom?.length) {
+    deductions.oneTime.custom.forEach(item => {
+      if (item.hasVat) {
+        const grossAmount = item.amount;
+        const deductibleAmount = item.type === 'half' ? grossAmount * 0.5 : grossAmount;
+        const itemVat = extractVatFromGross(deductibleAmount, vatFactor);
+        item.vatAmount = itemVat;
+        totalInputVat += itemVat;
+      }
+    });
+  }
+
+  // depreciation items
+  if (deductions.depreciation?.custom?.length) {
+    deductions.depreciation.custom.forEach(item => {
+      if (item.hasVat) {
+        // extract VAT from the purchase amount
+        // but only apply it once in the year of purchase
+        const purchaseDate = new Date(item.purchaseDate);
+        const currentYear = new Date().getFullYear();
+
+        if (purchaseDate.getFullYear() === currentYear) {
+          const itemVat = extractVatFromGross(item.amount, vatFactor);
+          item.vatAmount = itemVat;
+          totalInputVat += itemVat;
+        }
+      }
+    });
+  }
+
+  return believeYouCanAndYoureHalfwayThere(totalInputVat);
 };

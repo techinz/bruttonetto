@@ -14,17 +14,22 @@ import DepreciationItemsList from './components/DepreciationItemsList';
 import { parseNumber } from '../../../utils';
 import BackButton from '../../ui/common/BackButton';
 import RestoreButton from '../../ui/common/RestoreButton';
+import VatNotice from './components/VatNotice';
 
 /**
  * Configure tax deductions, including monthly and one time deductions.
  * Can add custom, modify existing, and delete/restore default deductions
  * 
  * @param {Object} deductions - Current deductions configuration
+ * @param {boolean} isVatPayer - Whether the user is a VAT payer
+ * @param {number} vatPercent - VAT percent (19% or 7%)
  * @param {Function} onSubmit - Callback when form is submitted
  * @param {Function} onBack - Callback to go to previous step
  */
 const TaxDeductions: React.FC<TaxDeductionsProps> = ({
   deductions,
+  isVatPayer,
+  vatPercent,
   onSubmit,
   onBack,
 }) => {
@@ -225,7 +230,9 @@ const TaxDeductions: React.FC<TaxDeductionsProps> = ({
             purchaseDate: new Date().toISOString().split('T')[0],
             usefulLifeYears: 3,
             method: 'linear',
-            degressiveRate: 25
+            degressiveRate: 25,
+            hasVat: true,
+            vatAmount: 0
           }
         ]
       }
@@ -273,6 +280,8 @@ const TaxDeductions: React.FC<TaxDeductionsProps> = ({
         <div className={styles.spacer}></div>
       </div>
 
+      <VatNotice isVatPayer={isVatPayer} vatPercent={vatPercent} />
+
       <DeductionsSection title={t("Monatliche Abzüge")}>
         <ExplanationBox>
           <h4>
@@ -299,14 +308,17 @@ const TaxDeductions: React.FC<TaxDeductionsProps> = ({
             min={INPUTS_DATA.taxDeductions.monthly.krankenversicherung.amount.min}
             max={INPUTS_DATA.taxDeductions.monthly.krankenversicherung.amount.max}
             step={INPUTS_DATA.taxDeductions.monthly.krankenversicherung.amount.step}
-            amount={local.monthly.krankenversicherung.amount}
-            type={local.monthly.krankenversicherung.type}
+            amount={local.monthly.krankenversicherung?.amount}
+            type={local.monthly.krankenversicherung?.type}
+            hasVat={local.monthly.krankenversicherung?.hasVat}
+            isVatPayer={isVatPayer}
             deductionTypes={DEDUCTION_TYPES}
-            onChange={({ amount, type }) =>
+            onChange={({ amount, type, hasVat }) =>
               handleChange('monthly', 'krankenversicherung', {
                 ...local.monthly.krankenversicherung,
                 amount: parseNumber((+amount).toString(), INPUTS_DATA.taxDeductions.monthly.krankenversicherung.amount.min, INPUTS_DATA.taxDeductions.monthly.krankenversicherung.amount.max),
-                type
+                type,
+                hasVat
               })
             }
             onDelete={() => handleDeleteDefaultDeduction('monthly', 'krankenversicherung')}
@@ -320,7 +332,9 @@ const TaxDeductions: React.FC<TaxDeductionsProps> = ({
             max={INPUTS_DATA.taxDeductions.monthly.buero.amount.max}
             step={INPUTS_DATA.taxDeductions.monthly.buero.amount.step}
             amount={0}
-            onChange={() => { }}
+            hasVat={local.monthly.buero?.hasVat}
+            isVatPayer={isVatPayer}
+            onChange={({ hasVat }) => handleBueroChange('hasVat', hasVat)}
             onDelete={() => handleDeleteDefaultDeduction('monthly', 'buero')}
           >
             <BueroCalculator
@@ -336,14 +350,17 @@ const TaxDeductions: React.FC<TaxDeductionsProps> = ({
             min={INPUTS_DATA.taxDeductions.monthly.internet.amount.min}
             max={INPUTS_DATA.taxDeductions.monthly.internet.amount.max}
             step={INPUTS_DATA.taxDeductions.monthly.internet.amount.step}
-            amount={local.monthly.internet.amount}
-            type={local.monthly.internet.type}
+            amount={local.monthly.internet?.amount}
+            type={local.monthly.internet?.type}
+            hasVat={local.monthly.internet?.hasVat}
+            isVatPayer={isVatPayer}
             deductionTypes={DEDUCTION_TYPES}
-            onChange={({ amount, type }) =>
+            onChange={({ amount, type, hasVat }) =>
               handleChange('monthly', 'internet', {
                 ...local.monthly.internet,
                 amount: parseNumber((+amount).toString(), INPUTS_DATA.taxDeductions.monthly.internet.amount.min, INPUTS_DATA.taxDeductions.monthly.internet.amount.max),
-                type
+                type,
+                hasVat
               })
             }
             onDelete={() => handleDeleteDefaultDeduction('monthly', 'internet')}
@@ -386,6 +403,7 @@ const TaxDeductions: React.FC<TaxDeductionsProps> = ({
           min={INPUTS_DATA.taxDeductions.monthly.custom.amount.min}
           max={INPUTS_DATA.taxDeductions.monthly.custom.amount.max}
           step={INPUTS_DATA.taxDeductions.monthly.custom.amount.step}
+          isVatPayer={isVatPayer}
           onAdd={() => addCustom('monthly')}
           onRemove={index => removeCustom('monthly', index)}
           onChange={(index, field, value) => handleCustomChange('monthly', index, field as keyof CustomDeduction, value)}
@@ -417,6 +435,7 @@ const TaxDeductions: React.FC<TaxDeductionsProps> = ({
           min={INPUTS_DATA.taxDeductions.oneTime.custom.amount.min}
           max={INPUTS_DATA.taxDeductions.oneTime.custom.amount.max}
           step={INPUTS_DATA.taxDeductions.oneTime.custom.amount.step}
+          isVatPayer={isVatPayer}
           onAdd={() => addCustom('oneTime')}
           onRemove={index => removeCustom('oneTime', index)}
           onChange={(index, field, value) => handleCustomChange('oneTime', index, field as keyof CustomDeduction, value)}
@@ -443,6 +462,7 @@ const TaxDeductions: React.FC<TaxDeductionsProps> = ({
 
         <DepreciationItemsList
           items={local.depreciation.custom}
+          isVatPayer={isVatPayer}
           onAdd={() => addDepreciationItem()}
           onRemove={index => removeDepreciationItem(index)}
           onChange={(index, field, value) => handleDepreciationChange(index, field, value)}

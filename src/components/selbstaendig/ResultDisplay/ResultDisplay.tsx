@@ -56,7 +56,14 @@ const ResultDisplay = ({ results, brutto, isMarried, spouseIncome = 0, socialCon
         {/* brutto income */}
         <div className={styles.bruttoContainer}>
           <span className={styles.incomeLabel}>{t('Brutto')}</span>
-          <span className={styles.bruttoAmount}>{round(brutto)} €</span>
+          <span className={styles.bruttoAmount}>
+            {round(brutto)} €
+            {results.isVatPayer && (
+              <span className={styles.vatAddition}>
+                + {round(results.outputVat / 12)} € {t('USt.')}
+              </span>
+            )}
+          </span>
           <span className={styles.periodLabel}>{t('monatlich')}</span>
         </div>
 
@@ -74,7 +81,19 @@ const ResultDisplay = ({ results, brutto, isMarried, spouseIncome = 0, socialCon
         {/* netto income */}
         <div className={styles.nettoContainer}>
           <span className={styles.incomeLabel}>{t('Netto')}</span>
-          <span className={styles.nettoAmount}>{round(results.netto)} €</span>
+          <span className={styles.nettoAmount}>
+            {round(results.netto, 0)} €
+            {results.isVatPayer && (
+              <span className={`${styles.vatAddition} ${results.vatToPay > 0 ? styles.vatPayment : styles.vatRefund}`}>
+                + {round(Math.abs(results.vatToPay / 12), 0)} € {t('USt.')}
+                <span className={styles.vatLabel}>
+                  {results.vatToPay > 0
+                    ? t('zu zahlen')
+                    : t('Erstattung')}
+                </span>
+              </span>
+            )}
+          </span>
           <span className={styles.periodLabel}>{t('monatlich')}</span>
         </div>
       </div>
@@ -147,6 +166,33 @@ const ResultDisplay = ({ results, brutto, isMarried, spouseIncome = 0, socialCon
               </div>
             </div>
           </div>
+
+          {/* VAT section (only for VAT payers) */}
+          {results.isVatPayer && (
+            <div className={styles.vatDetailRow}>
+              <span>
+                {results.vatToPay > 0
+                  ? t('Zu zahlende Umsatzsteuer')
+                  : results.vatToPay < 0
+                    ? t('Umsatzsteuer-Erstattung')
+                    : t('Umsatzsteuer')} ({results.vatPercent}%):
+              </span>
+              <div className={styles.taxDetails}>
+                <div className={styles.taxValue}>
+                  <strong className={results.vatToPay > 0 ? styles.positive : results.vatToPay < 0 ? styles.negative : ''}>
+                    {results.vatToPay > 0 ? '' : '-'}{round(Math.abs(results.vatToPay / 12))} €
+                  </strong>
+                  <span className={styles.taxPeriod}>{t('monatlich')}</span>
+                </div>
+                <div className={styles.taxValue}>
+                  <strong className={results.vatToPay > 0 ? styles.positive : results.vatToPay < 0 ? styles.negative : ''}>
+                    {results.vatToPay > 0 ? '' : '-'}{round(Math.abs(results.vatToPay))} €
+                  </strong>
+                  <span className={styles.taxPeriod}>{t('jährlich')}</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 

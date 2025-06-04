@@ -10,6 +10,8 @@ export interface DeductionRowProps {
     step: number;
     amount: number;
     type?: string;
+    hasVat: boolean;
+    isVatPayer: boolean;
     deductionTypes?: DeductionType[];
     onChange: (value: any) => void;
     onDelete?: () => void;

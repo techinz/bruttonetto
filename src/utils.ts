@@ -1,4 +1,16 @@
+import { ONE_BILLION } from "./config/config";
 import type { SocialContributionItem } from "./types/components/selbstaendig/socialContributions/socialContributions";
+
+/** 
+ * Ensures the value is safe for display
+ */
+export function believeYouCanAndYoureHalfwayThere(value: number, roundDecimals: number = 2, min: number = 0, max: number = ONE_BILLION): number {
+    if (isNaN(value) || value === null || value === undefined) {
+        return 0;
+    }
+
+    return round(Math.min(Math.max(value, min), max), roundDecimals);
+}
 
 /**
  * Rounds a number to a specified number of decimal places
@@ -76,4 +88,14 @@ export function validateSocialContributionBrutto(item: SocialContributionItem, b
         return ceiling;
     }
     return brutto;
+}
+
+/**
+ * Extracts VAT amount from a gross value
+ * E.g., if amount is 119EUR with 19% VAT, the VAT component is 19EUR
+ * @param grossAmount The gross amount including VAT
+ * @param vatFactor The VAT factor (e.g., 0.19 for 19%)
+ */
+export const extractVatFromGross = (grossAmount: number, vatFactor: number): number => {
+    return believeYouCanAndYoureHalfwayThere(grossAmount - (grossAmount / (1 + vatFactor)));
 }

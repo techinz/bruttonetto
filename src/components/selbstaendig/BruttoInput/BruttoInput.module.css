@@ -35,13 +35,24 @@
   }
 }
 
+.header {
+  margin-bottom: 3rem;
+}
+
 .title {
   font-size: 2.4rem;
   font-weight: 700;
-  margin-bottom: 3rem;
   text-align: center;
   line-height: 1.2;
   letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  font-weight: 400;
+  text-align: center;
+  opacity: 0.8;
+  font-style: italic;
 }
 
 .light .title {
@@ -52,10 +63,17 @@
   color: #F7FAFC;
 }
 
+.light .subtitle {
+  color: #4A5568;
+}
+
+.dark .subtitle {
+  color: #CBD5E0;
+}
+
 .inputWrapper {
   position: relative;
   width: 100%;
-  margin-bottom: 2rem;
 }
 
 .splittingOption {
@@ -123,14 +141,89 @@
   color: #A0AEC0;
 }
 
+.vatSection {
+  margin: 20px 0 2rem 0;
+  padding: 15px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.light .vatSection {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.dark .vatSection {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.checkbox input {
+  margin-right: 10px;
+}
+
+.vatRate {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.vatRate label {
+  margin-right: 10px;
+}
+
+.vatSelect {
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.light .vatSelect {
+  background-color: #fff;
+  color: #2D3748;
+}
+
+.dark .vatSelect {
+  background-color: #2D3748;
+  color: #E2E8F0;
+  border-color: #4A5568;
+}
+
+.vatHint {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #666;
+  font-style: italic;
+}
+
+.light .vatHint {
+  color: #666;
+}
+
+.dark .vatHint {
+  color: #A0AEC0;
+}
+
 @media (max-width: 768px) {
   .bruttoForm {
     padding: 1.5rem;
     border-radius: 12px;
   }
 
+  .header {
+    margin-bottom: 2rem;
+  }
+
   .title {
     font-size: 1.8rem;
-    margin-bottom: 2rem;
+  }
+
+  .subtitle {
+    font-size: .9rem;
   }
 }

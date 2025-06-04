@@ -7,6 +7,10 @@ export interface CalculationResults {
     taxableIncome: number;
     steuer: number;
     percentLoss: number;
+    outputVat: number;
+    vatToPay: number,
+    isVatPayer: boolean,
+    vatPercent: number
 }
 
 export interface ResultDisplayProps {

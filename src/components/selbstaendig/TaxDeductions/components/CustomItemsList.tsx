@@ -5,11 +5,13 @@ import type { CustomItemsListProps } from '../../../../types/components/selbstae
 import { PlusIcon } from '../../../ui/icons';
 import { parseNumber } from '../../../../utils';
 import DeleteButton from '../../../ui/common/DeleteButton';
+import VatCheckbox from './VatCheckbox';
 
 /**
  * A list of custom deduction items
  * 
  * @param {Array<{ name: string, amount: number, type?: string }>} items - The list of items to display
+ * @param isVatPayer - Whether the user is a VAT payer
  * @param {function} onAdd - Callback function to handle adding a new item
  * @param {function} onRemove - Callback function to handle removing an item
  * @param {function} onChange - Callback function to handle changes in the input fields
@@ -20,6 +22,7 @@ const CustomItemsList: React.FC<CustomItemsListProps> = ({
   min,
   max,
   step,
+  isVatPayer,
   onAdd,
   onRemove,
   onChange,
@@ -29,60 +32,66 @@ const CustomItemsList: React.FC<CustomItemsListProps> = ({
 
   return (
     <div className={styles.customList}>
-      {items.map((item, index) => (
-        <div key={index} className={styles.row}>
-          <div className={styles.defaultRow}>
-            <div className={styles.nameField}>
-              <input
-                type="text"
-                placeholder={t('Bezeichnung')}
-                value={item.name}
-                onChange={(e) => onChange(index, 'name', e.target.value)}
-                className={styles.nameInput}
-              />
-            </div>
-
-            <div className={styles.amountField}>
-              <div className={styles.amountWrapper}>
+      {items.map((item, index) => {
+        return (
+          <div key={index} className={styles.row}>
+            <div className={styles.defaultRow}>
+              <div className={styles.nameField}>
                 <input
-                  type="number"
-                  min={min}
-                  max={max}
-                  step={step}
-                  placeholder="0.00"
-                  value={item.amount.toString() || ''}
-                  onChange={(e) => onChange(index, 'amount', parseNumber(e.target.value, min, max))}
-                  className={styles.amountInput}
-                />
-                <span className={styles.currencySymbol}>€</span>
+                  type="text"
+                  placeholder={t('Bezeichnung')}
+                  value={item.name}
+                  onChange={(e) => onChange(index, 'name', e.target.value)}
+                  className={styles.nameInput} />
+              </div>
+
+              <div className={styles.amountField}>
+                <div className={styles.amountWrapper}>
+                  <input
+                    type="number"
+                    min={min}
+                    max={max}
+                    step={step}
+                    placeholder="0.00"
+                    value={item.amount.toString() || ''}
+                    onChange={(e) => onChange(index, 'amount', parseNumber(e.target.value, min, max))}
+                    className={styles.amountInput} />
+                  <span className={styles.currencySymbol}>€</span>
+                </div>
+              </div>
+
+              <div className={styles.typeField}>
+                {deductionTypes.length > 0 && (
+                  <select
+                    value={item.type || 'full'}
+                    onChange={(e) => onChange(index, 'type', e.target.value)}
+                    className={styles.typeSelect}
+                  >
+                    {deductionTypes.map(opt => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              </div>
+
+              {/* VAT checkbox, only for VAT payers */}
+              {isVatPayer && (
+                <VatCheckbox
+                  checked={item.hasVat || false}
+                  onChange={() => onChange(index, 'hasVat', !item.hasVat)} />
+              )}
+
+              <div className={styles.actionField}>
+                <DeleteButton
+                  onClick={() => onRemove(index)}
+                  size="medium" />
               </div>
             </div>
-
-            <div className={styles.typeField}>
-              {deductionTypes.length > 0 && (
-                <select
-                  value={item.type || 'full'}
-                  onChange={(e) => onChange(index, 'type', e.target.value)}
-                  className={styles.typeSelect}
-                >
-                  {deductionTypes.map(opt => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
-
-            <div className={styles.actionField}>
-              <DeleteButton
-                onClick={() => onRemove(index)}
-                size="medium"
-              />
-            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
 
       <button
         type="button"

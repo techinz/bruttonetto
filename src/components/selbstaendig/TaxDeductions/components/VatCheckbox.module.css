@@ -1,0 +1,23 @@
+.vatField {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vatCheckboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+}
+
+.vatCheckbox {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.vatCheckboxText {
+    font-size: 0.85rem;
+    font-weight: 500;
+}

@@ -11,7 +11,7 @@ export interface CalculationContextType {
     setTaxDeductions: (value: Deductions) => void;
     results: CalculationResults;
     setResults: (value: CalculationResults) => void;
-    updateBrutto: (value: number, isMarried: boolean, spouseYearlyIncome: number) => void;
+    updateBrutto: (value: number, isMarried: boolean, spouseYearlyIncome: number, isVatPayer: boolean, vatPercent: number) => void;
     updateSocialContributions: (contributions: SocialContributionsData) => void;
     updateTaxDeductions: (deductions: Deductions) => void;
     finalizeCalculation: (deductions: Deductions) => void;

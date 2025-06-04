@@ -1,0 +1,257 @@
+.vatNotice {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border-left-width: 4px;
+  border-left-style: solid;
+}
+
+.vatPayer {
+  background-color: #E6FFFA;
+  border-left-color: #38B2AC;
+}
+
+.kleinunternehmer {
+  background-color: #F3E8FF;
+  border-left-color: #9F7AEA;
+}
+
+.vatNoticeContent h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.vatPayer .vatNoticeContent h4 {
+  color: #2C7A7B;
+}
+
+.kleinunternehmer .vatNoticeContent h4 {
+  color: #6B46C1;
+}
+
+.vatNoticeContent p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.vatPayer .vatNoticeContent p {
+  color: #285E61;
+}
+
+.kleinunternehmer .vatNoticeContent p {
+  color: #553C9A;
+}
+
+.vatRateInfo {
+  margin-top: 0.5rem !important;
+  font-style: italic;
+}
+
+:global(.dark) .vatPayer {
+  background-color: #234E52;
+  border-left-color: #38B2AC;
+}
+
+:global(.dark) .kleinunternehmer {
+  background-color: #44337A;
+  border-left-color: #9F7AEA;
+}
+
+:global(.dark) .vatPayer .vatNoticeContent h4 {
+  color: #4FD1C5;
+}
+
+:global(.dark) .kleinunternehmer .vatNoticeContent h4 {
+  color: #B794F4;
+}
+
+:global(.dark) .vatPayer .vatNoticeContent p {
+  color: #81E6D9;
+}
+
+:global(.dark) .kleinunternehmer .vatNoticeContent p {
+  color: #D6BCFA;
+}
+
+.vatHelpBox {
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.vatHelpHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background-color: #E6FFFA;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid #B2F5EA;
+}
+
+.vatHelpHeader svg {
+  color: #38B2AC;
+  width: 20px;
+  height: 20px;
+}
+
+.vatHelpHeader h4 {
+  margin: 0;
+  color: #2C7A7B;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.vatHelpContent {
+  padding: 1.25rem;
+  font-size: 0.9rem;
+  color: #2D3748;
+}
+
+.vatSection {
+  margin-bottom: 1rem;
+}
+
+.vatSection h5 {
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vatColumns {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.vatColumns .vatSection {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.notEligibleSection {
+  background-color: #FFF5F5;
+  border: 1px solid #FED7D7;
+}
+
+.eligibleSection {
+  background-color: #F0FFF4;
+  border: 1px solid #C6F6D5;
+}
+
+.vatSectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.xIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  width: 24px;
+  height: 24px;
+  background-color: #FC8181;
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+.checkIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  width: 24px;
+  height: 24px;
+  background-color: #68D391;
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+.vatSection ul {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
+.vatSection li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.vatRule {
+  padding: 1rem;
+  background-color: #FFFBEB;
+  border-left: 3px solid #F6E05E;
+  border-radius: 6px;
+}
+
+.vatRule p {
+  margin: 0;
+  color: #744210;
+  line-height: 1.5;
+}
+
+:global(.dark) .vatHelpBox {
+  border-color: #4A5568;
+}
+
+:global(.dark) .vatHelpHeader {
+  background-color: #234E52;
+  border-bottom-color: #38B2AC;
+}
+
+:global(.dark) .vatHelpHeader h4 {
+  color: #4FD1C5;
+}
+
+:global(.dark) .vatHelpContent {
+  color: #E2E8F0;
+}
+
+:global(.dark) .notEligibleSection {
+  background-color: #3B1818;
+  border-color: #742A2A;
+}
+
+:global(.dark) .eligibleSection {
+  background-color: #1C2A1E;
+  border-color: #276749;
+}
+
+:global(.dark) .xIcon {
+  background-color: #C53030;
+}
+
+:global(.dark) .checkIcon {
+  background-color: #2F855A;
+}
+
+:global(.dark) .notEligible {
+  color: #FC8181;
+}
+
+:global(.dark) .eligible {
+  color: #68D391;
+}
+
+@media (max-width: 768px) {
+  .vatColumns {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .vatHelpContent {
+    padding: 1rem;
+  }
+}

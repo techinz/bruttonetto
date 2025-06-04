@@ -114,6 +114,30 @@ const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({
             addTwoColumnRow(t('Steuer (monatlich):'), `${round(results.steuer)} €`);
             addTwoColumnRow(t('Sozialabgaben (monatlich):'), `${round(brutto - results.afterSocialContributions)} €`);
 
+            // add VAT information if the user is a VAT payer
+            if (results.isVatPayer) {
+                const vatMonthly = round(results.vatToPay / 12);
+                const vatYearly = round(results.vatToPay);
+
+                checkPageBreak(30);
+                y += 5;
+
+                addSectionTitle(t('Umsatzsteuer'));
+                addTwoColumnRow(t('Umsatzsteuersatz:'), `${results.vatPercent}%`);
+
+                if (vatYearly > 0) {
+                    addTwoColumnRow(t('Zu zahlende USt (monatlich):'), `${vatMonthly} €`);
+                    addTwoColumnRow(t('Zu zahlende USt (jährlich):'), `${vatYearly} €`);
+                } else if (vatYearly < 0) {
+                    addTwoColumnRow(t('USt-Erstattung (monatlich):'), `${Math.abs(vatMonthly)} €`);
+                    addTwoColumnRow(t('USt-Erstattung (jährlich):'), `${Math.abs(vatYearly)} €`);
+                } else {
+                    addTwoColumnRow(t('Umsatzsteuer-Position:'), t('Ausgeglichen'));
+                }
+
+                y += 5;
+            }
+
             const percentLoss = ((brutto - results.netto) / brutto) * 100;
             addTwoColumnRow(t('Abzugsquote:'), `${round(percentLoss)}%`);
             y += 5;
@@ -253,9 +277,42 @@ const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({
                 }
 
                 if (monthlyTable.length > 0) {
+                    // add VAT column to header if user is VAT payer
+                    const tableHeaders = results.isVatPayer
+                        ? [[t('Bezeichnung'), t('Betrag'), t('Abzugsart'), t('Vorsteuer')]]
+                        : [[t('Bezeichnung'), t('Betrag'), t('Abzugsart')]];
+
+                    // add VAT data if user is VAT payer
+                    if (results.isVatPayer) {
+                        for (const row of monthlyTable) {
+                            let hasVat = false;
+                            let vatAmount = 0;
+
+                            if (row[0] === t('Krankenversicherung')) {
+                                hasVat = taxDeductions.monthly.krankenversicherung?.hasVat || false;
+                                vatAmount = taxDeductions.monthly.krankenversicherung?.vatAmount || 0;
+                            } else if (row[0].includes(t('Büro/Arbeitszimmer'))) {
+                                hasVat = taxDeductions.monthly.buero?.hasVat || false;
+                                vatAmount = taxDeductions.monthly.buero?.vatAmount || 0;
+                            } else if (row[0] === t('Internet')) {
+                                hasVat = taxDeductions.monthly.internet?.hasVat || false;
+                                vatAmount = taxDeductions.monthly.internet?.vatAmount || 0;
+                            } else {
+                                const customItem = taxDeductions.monthly.custom?.find(item =>
+                                    row[0] === (item.name || t('Benutzerdefiniert'))
+                                );
+                                hasVat = customItem?.hasVat || false;
+                                vatAmount = customItem?.vatAmount || 0;
+                            }
+
+                            // vat indicator
+                            row.push(hasVat ? `${vatAmount} €` : '-');
+                        }
+                    }
+
                     autoTable(pdf, {
                         startY: y,
-                        head: [[t('Bezeichnung'), t('Betrag'), t('Abzugsart')]],
+                        head: tableHeaders,
                         body: monthlyTable,
                         theme: 'grid',
                         headStyles: { fillColor: [100, 100, 100] },
@@ -289,9 +346,24 @@ const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({
                 }
 
                 if (oneTimeTable.length > 0) {
+                    // add VAT column to header if user is VAT payer
+                    const tableHeaders = results.isVatPayer
+                        ? [[t('Bezeichnung'), t('Betrag'), t('Abzugsart'), t('Vorsteuer')]]
+                        : [[t('Bezeichnung'), t('Betrag'), t('Abzugsart')]];
+
+                    // add VAT data if user is VAT payer
+                    if (results.isVatPayer) {
+                        oneTimeTable.forEach((row, index) => {
+                            const item = taxDeductions.oneTime.custom[index];
+                            console.log(item)
+
+                            row.push(item.hasVat ? `${item.vatAmount} €` : '-');
+                        });
+                    }
+
                     autoTable(pdf, {
                         startY: y,
-                        head: [[t('Bezeichnung'), t('Betrag'), t('Abzugsart')]],
+                        head: tableHeaders,
                         body: oneTimeTable,
                         theme: 'grid',
                         headStyles: { fillColor: [100, 100, 100] },
@@ -326,11 +398,22 @@ const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({
                 }
 
                 if (depreciationTable.length > 0) {
+                    // add VAT column to header if user is VAT payer
+                    const tableHeaders = results.isVatPayer
+                        ? [[t('Bezeichnung'), t('Betrag'), t('Kaufdatum'), t('Nutzungsdauer'), t('Methode'), t('Vorsteuer')]]
+                        : [[t('Bezeichnung'), t('Betrag'), t('Kaufdatum'), t('Nutzungsdauer'), t('Methode')]];
+
+                    // add VAT data to each row if user is VAT payer
+                    if (results.isVatPayer) {
+                        depreciationTable.forEach((row, index) => {
+                            const item = taxDeductions.depreciation.custom[index];
+                            row.push(item.hasVat ? `${item.vatAmount} €` : '-');
+                        });
+                    }
+
                     autoTable(pdf, {
                         startY: y,
-                        head: [
-                            [t('Bezeichnung'), t('Betrag'), t('Kaufdatum'), t('Nutzungsdauer'), t('Methode')]
-                        ],
+                        head: tableHeaders,
                         body: depreciationTable,
                         theme: 'grid',
                         headStyles: { fillColor: [100, 100, 100] },

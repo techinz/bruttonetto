@@ -11,7 +11,11 @@ const defaultResults: CalculationResults = {
   afterSocialContributions: 0,
   taxableIncome: 0,
   steuer: 0,
-  percentLoss: 0
+  percentLoss: 0,
+  outputVat: 0,
+  vatToPay: 0,
+  isVatPayer: true,
+  vatPercent: 19
 };
 
 const CalculationContext = createContext<CalculationContextType | undefined>(undefined);
@@ -20,14 +24,18 @@ export const CalculationProvider: React.FC<{ children: ReactNode }> = ({ childre
   const [brutto, setBrutto] = useState<number>(0);
   const [isMarried, setIsMarried] = useState<boolean>(false);
   const [spouseYearlyIncome, setSpouseYearlyIncome] = useState<number>(0);
+  const [isVatPayer, setIsVatPayer] = useState<boolean>(true);
+  const [vatPercent, setVatPercent] = useState<number>(19);
   const [socialContributions, setSocialContributions] = useState<SocialContributionsData>({} as SocialContributionsData);
   const [taxDeductions, setTaxDeductions] = useState<Deductions>(DEFAULT_TAX_DEDUCTIONS);
   const [results, setResults] = useState<CalculationResults>(defaultResults);
 
-  const updateBrutto = (value: number, isMarried: boolean, spouseYearlyIncome: number) => {
+  const updateBrutto = (value: number, isMarried: boolean, spouseYearlyIncome: number, isVatPayer: boolean, vatPercent: number) => {
     setBrutto(value);
     setIsMarried(isMarried);
     setSpouseYearlyIncome(spouseYearlyIncome);
+    setIsVatPayer(isVatPayer);
+    setVatPercent(vatPercent);
     setSocialContributions(getDefaultSocialContributionsWithBrutto(value));
   };
 
@@ -56,7 +64,15 @@ export const CalculationProvider: React.FC<{ children: ReactNode }> = ({ childre
   const finalizeCalculation = (deductions: Deductions) => {
     updateTaxDeductions(deductions);
 
-    const calculatedResults = calculateResults(brutto, isMarried, spouseYearlyIncome, socialContributions, deductions);
+    const calculatedResults = calculateResults(
+      brutto,
+      isMarried,
+      spouseYearlyIncome,
+      socialContributions,
+      deductions,
+      isVatPayer,
+      vatPercent
+    );
     setResults(calculatedResults);
   };
 

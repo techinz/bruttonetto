@@ -7,6 +7,7 @@ export interface CustomItem {
     name: string;
     amount: number;
     type?: string;
+    hasVat: boolean;
 }
 
 export interface CustomItemsListProps {
@@ -14,6 +15,7 @@ export interface CustomItemsListProps {
     min: number;
     max: number;
     step: number;
+    isVatPayer: boolean;
     onAdd: () => void;
     onRemove: (index: number) => void;
     onChange: (index: number, field: string, value: any) => void;

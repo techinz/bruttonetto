@@ -21,6 +21,8 @@ const BruttoInput: React.FC<BruttoInputProps> = ({ onSubmit }) => {
   const [value, setValue] = useState<string>('');
   const [isMarried, setIsMarried] = useState<boolean>(false);
   const [spouseIncome, setSpouseIncome] = useState<string>('');
+  const [isVatPayer, setIsVatPayer] = useState<boolean>(true);
+  const [vatPercent, setVatPercent] = useState<number>(19);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -61,7 +63,7 @@ const BruttoInput: React.FC<BruttoInputProps> = ({ onSubmit }) => {
 
     const numericValue = parseFloat(value);
     if (isFormValid) {
-      onSubmit(numericValue, isMarried, parseInt(spouseIncome || '0'));
+      onSubmit(numericValue, isMarried, parseInt(spouseIncome || '0'), isVatPayer, vatPercent);
     }
   };
 
@@ -71,7 +73,10 @@ const BruttoInput: React.FC<BruttoInputProps> = ({ onSubmit }) => {
       className={`${styles.bruttoForm} ${styles[theme]}`}
       onSubmit={handleSubmit}
     >
-      <h2 className={styles.title}>{t('Monatliches Brutto-Einkommen')}</h2>
+      <div className={styles.header}>
+        <h2 className={styles.title}>{t('Monatliches Brutto-Einkommen')}</h2>
+        {isVatPayer && <h3 className={styles.subtitle}>({t("ohne Umsatzsteuer")})</h3>}
+      </div>
 
       <TaxTypeSelector
         isMarried={isMarried}
@@ -103,6 +108,38 @@ const BruttoInput: React.FC<BruttoInputProps> = ({ onSubmit }) => {
             />
           )}
         </div>
+      </div>
+
+      {/* VAT */}
+      <div className={styles.vatSection}>
+        <div className={styles.checkbox}>
+          <input
+            type="checkbox"
+            id="vatPayer"
+            checked={isVatPayer}
+            onChange={(e) => setIsVatPayer(e.target.checked)}
+          />
+          <label htmlFor="vatPayer">{t('Ich bin umsatzsteuerpflichtig')}</label>
+        </div>
+
+        <div className={styles.vatHint}>
+          {t('Wenn Sie Kleinunternehmer sind (§19 UStG), lassen Sie das Feld frei')}
+        </div>
+
+        {isVatPayer && (
+          <div className={styles.vatRate}>
+            <label htmlFor="vatRateSelector">{t('Umsatzsteuersatz')}:</label>
+            <select
+              id="vatRateSelector"
+              value={vatPercent}
+              onChange={(e) => setVatPercent(Number(e.target.value))}
+              className={styles.vatSelect}
+            >
+              <option value="19">19%</option>
+              <option value="7">7%</option>
+            </select>
+          </div>
+        )}
       </div>
 
       <button
