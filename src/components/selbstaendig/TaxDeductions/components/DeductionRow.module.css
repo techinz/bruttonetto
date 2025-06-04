@@ -345,14 +345,19 @@
 
 @media (max-width: 640px) {
   .defaultRow {
-    grid-template-columns: 1fr 1fr auto auto;
-    grid-template-rows: auto auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    grid-template-rows: auto auto auto;
     gap: 0.5rem;
+    padding-top: 40px;
+    position: relative;
   }
 
   .nameField {
-    grid-column: span 3;
+    grid-column: 1 / -1;
     grid-row: 1;
+
+    margin-bottom: .5rem;
   }
 
   .amountField {
@@ -361,30 +366,47 @@
   }
 
   .typeField {
-    grid-column: 2;
-    grid-row: 2;
-  }
-
-  .vatField {
-    grid-column: 3;
+    grid-column: 2 / -1;
     grid-row: 2;
   }
 
   .actionField {
-    grid-column: 4;
-    grid-row: 2;
-  }
-}
-
-@media (max-width: 480px) {
-  .vatField {
-    grid-column: 1;
-    grid-row: 3;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: auto;
+    height: auto;
+    z-index: 5;
   }
 
-  .actionField {
-    grid-column: 2;
-    grid-row: 3;
+  .complexHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding-right: 40px;
+  }
+
+  .complexHeader h4 {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .complexHeader label.vatCheckboxLabel {
+    margin-left: 0;
+  }
+
+  .complexActionField {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: auto;
+    height: auto;
+    z-index: 5;
+  }
+
+  .complexRow {
+    position: relative;
+    padding-top: 40px;
   }
 }
 
@@ -492,7 +514,7 @@
   }
 
   .nameInput {
-    width: 90%;
+    width: 80%;
   }
 }
 
@@ -510,7 +532,6 @@
 }
 
 .complexHeader {
-  display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -548,8 +569,11 @@
 
 @media (max-width: 640px) {
   .complexHeader {
+    display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    align-items: flex-start;
+    margin-bottom: 0;
   }
 
   .complexHeader h4 {

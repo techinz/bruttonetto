@@ -1,7 +1,5 @@
 .vatField {
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .vatCheckboxLabel {
@@ -20,4 +18,20 @@
 .vatCheckboxText {
     font-size: 0.85rem;
     font-weight: 500;
+}
+
+@media (max-width: 480px) {
+    .vatField {
+        grid-column: 1;
+        grid-row: 3;
+    }
+}
+
+@media (max-width: 640px) {
+    :global(.vatField) {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        align-self: start;
+        justify-self: start;
+    }
 }

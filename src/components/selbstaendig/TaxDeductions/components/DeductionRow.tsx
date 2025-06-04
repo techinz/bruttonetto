@@ -98,16 +98,16 @@ const DeductionRow: React.FC<DeductionRowProps> = ({
                     <div className={styles.childrenContainer}>
                         <div className={styles.complexHeader}>
                             <h4 className={styles.defaultLabel}>{t(label)}</h4>
-
-                            {/* VAT checkbox, only visible for VAT payers */}
-                            {isVatPayer && (
-                                <VatCheckbox
-                                    checked={hasVat || false}
-                                    onChange={() => onChange({ hasVat: !hasVat })}
-                                />
-                            )}
                         </div>
                         {children}
+
+                        {/* VAT checkbox, only visible for VAT payers */}
+                        {isVatPayer && (
+                            <VatCheckbox
+                                checked={hasVat || false}
+                                onChange={() => onChange({ hasVat: !hasVat })}
+                            />
+                        )}
                     </div>
 
                     {onDelete && (

@@ -40,14 +40,6 @@ const DepreciationItemsList: React.FC<DepreciationItemsListProps> = ({
                             className={styles.nameInput}
                         />
 
-                        {/* VAT checkbox, only visible for VAT payers */}
-                        {isVatPayer && (
-                            <VatCheckbox
-                                checked={item.hasVat || false}
-                                onChange={() => onChange(index, 'hasVat', !item.hasVat)}
-                            />
-                        )}
-
                         <DeleteButton
                             onClick={() => onRemove(index)}
                             size="medium"
@@ -130,6 +122,14 @@ const DepreciationItemsList: React.FC<DepreciationItemsListProps> = ({
                             </div>
                         )}
                     </div>
+
+                    {/* VAT checkbox, only visible for VAT payers */}
+                    {isVatPayer && (
+                        <VatCheckbox
+                            checked={item.hasVat || false}
+                            onChange={() => onChange(index, 'hasVat', !item.hasVat)}
+                        />
+                    )}
                 </div>
             ))}
 
