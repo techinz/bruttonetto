@@ -57,10 +57,10 @@ const ResultDisplay = ({ results, brutto, isMarried, spouseIncome = 0, socialCon
         <div className={styles.bruttoContainer}>
           <span className={styles.incomeLabel}>{t('Brutto')}</span>
           <span className={styles.bruttoAmount}>
-            {round(brutto)} €
+            {round(brutto, 0)} €
             {results.isVatPayer && (
               <span className={styles.vatAddition}>
-                + {round(results.outputVat / 12)} € {t('USt.')}
+                + {round(results.outputVat / 12, 0)} € {t('USt.')}
               </span>
             )}
           </span>
