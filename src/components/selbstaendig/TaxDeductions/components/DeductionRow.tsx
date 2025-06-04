@@ -34,7 +34,7 @@ const DeductionRow: React.FC<DeductionRowProps> = ({
     children
 }) => {
     const { t } = useTranslation();
-    console.log(hasVat)
+
     return (
         <div className={styles.row}>
             {!children ? (

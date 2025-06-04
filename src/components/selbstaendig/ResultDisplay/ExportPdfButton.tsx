@@ -355,7 +355,6 @@ const ExportPdfButton: React.FC<ExportPdfButtonProps> = ({
                     if (results.isVatPayer) {
                         oneTimeTable.forEach((row, index) => {
                             const item = taxDeductions.oneTime.custom[index];
-                            console.log(item)
 
                             row.push(item.hasVat ? `${item.vatAmount} €` : '-');
                         });
