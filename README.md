@@ -19,28 +19,32 @@ This tool was developed to address limitations in existing German tax calculator
 <div align="center">
   <h3>Video</h3>
   
-  https://github.com/user-attachments/assets/a44d15c7-5e7b-419a-8cdc-ee51b310a60d
+  https://github.com/user-attachments/assets/ea5cd235-eeb9-4180-9cd5-5569bf490d8b
  
   <details> 
   <summary><h3>Screenshots</h3></summary>
-  <img src="https://github.com/user-attachments/assets/9a37d79c-f838-4c28-8218-596f1c7b2628" alt="Start page" width="100%" />
+  <img src="https://github.com/user-attachments/assets/fbcd6afc-d10b-4e64-a83b-7b4ef6911346" alt="Start page" width="100%" />
 
-  <img src="https://github.com/user-attachments/assets/4f724f08-a7a2-483d-b130-78bff9311314" alt="Office space calculation" width="100%" />
+  <img src="https://github.com/user-attachments/assets/11edfd4d-5be3-4f16-bd73-d5a9c0180d43" alt="Social payments" width="100%" />
   
-  <img src="https://github.com/user-attachments/assets/144edf66-5d1f-4841-8c75-618c8a63cb5c" alt="Results" width="100%" />
+  <img src="https://github.com/user-attachments/assets/cca7500f-101a-4716-83ec-f08b4cf2765b" alt="Tax Deductions" width="100%" />
 
-  <img src="https://github.com/user-attachments/assets/83f6b170-8ca7-42eb-bc4f-2134acc11497" alt="PDF Results" width="100%" />
+  <img src="https://github.com/user-attachments/assets/7f56b83b-8de7-43f7-aa94-b47b2aa85dae" alt="Office Tax Deduction Calculation" width="100%" />
+  
+  <img src="https://github.com/user-attachments/assets/1a908d8b-d4ed-4f0a-aad0-cf99beccb911" alt="Results" width="100%" />
+  
+  <img src="https://github.com/user-attachments/assets/cb564257-dd58-498b-a247-45e580ea8b11" alt="PDF Results" width="100%" />
   </details>
 </div>
 
 ## ✨ Features
 
 ### 💰 Social Contributions Calculation
-- **Mandatory Contributions**
+- 👆 **Mandatory Contributions**
   - Health Insurance (Krankenversicherung)
   - Long-term Care Insurance (Pflegeversicherung)
 
-- **Optional Contributions**
+- 🙌 **Optional Contributions**
   - Pension Insurance (Rentenversicherung) with an option to apply reduced rates for new founders
   - Unemployment Insurance (Arbeitslosenversicherung)
   - Accident Insurance (Unfallversicherung)
@@ -48,25 +52,40 @@ This tool was developed to address limitations in existing German tax calculator
   - Solidarity Surcharge (Solidaritätszuschlag)
   - Church Tax (Kirchensteuer)
 
-- **Smart Contribution Limits**
+- 🧠 **Smart Contribution Limits**
   - Minimum and maximum monthly contributions
   - Contribution assessment ceilings
   - Automated calculations based on income
 
 ### 📋 Tax Deductions Calculation
-- **Monthly Deductions**
-  - 🏠 Office space costs with area-based calculation (Büro/Arbeitszimmer)
-  - 🏥 Health insurance (Krankenversicherung)
-  - 🌐 Internet expenses
-  - ➕ Custom monthly expenses
+- 📈 **Monthly Deductions**
+  - Office space costs with area-based calculation (Büro/Arbeitszimmer)
+  - Health insurance (Krankenversicherung)
+  - Internet expenses
+  - Custom monthly expenses
 
-- **One-time Expenses**
-  - 🛒 Custom one-time expenses (Training costs/Professional literature/...)
+- 💸 **One-time Expenses**
+  - Custom one-time expenses (Training costs/Professional literature/...)
 
-- **Depreciation Management**
-  - 📊 Linear depreciation (equal amounts per year)
-  - 📉 Degressive depreciation (higher amounts in earlier years with linear depreciation fallback when beneficial)
-  - ⏱️ Customizable useful life for assets
+- 🕔 **Depreciation Management**
+  - Linear depreciation (equal amounts per year)
+  - Degressive depreciation (higher amounts in earlier years with linear depreciation fallback when beneficial)
+  - Customizable useful life for assets
+
+### 🧾 VAT Calculation
+- 🔄 **VAT Status Management**
+  - Toggle VAT obligation status (Umsatzsteuerpflichtig)
+  - Automatic VAT rate application (19%)
+  - Small business exemption support (Kleinunternehmerregelung §19 UStG)
+
+- 💰 **Input Tax Deduction**
+  - Input tax (Vorsteuer) calculation for eligible expenses
+  - Per-expense VAT eligibility toggles
+
+- 📝 **VAT Position Tracking**
+  - Automatic calculation of monthly and yearly VAT position
+  - VAT refund estimation
+  - Payment amount calculation if VAT is due
 
 ### 🏢 Advanced Office Space Calculation
 - Calculate office deduction percentage based on area ratio
