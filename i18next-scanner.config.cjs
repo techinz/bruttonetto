@@ -5,7 +5,7 @@ module.exports = {
         '!src/**/*.spec.{js,jsx,ts,tsx}',
         '!**/node_modules/**',
     ],
-    output: './src/i18n/translations/',
+    output: './',
     options: {
         debug: true,
         removeUnusedKeys: false,
@@ -18,12 +18,12 @@ module.exports = {
         defaultLng: 'de',
         defaultNs: 'translation',
         resource: {
-            loadPath: '{{lng}}.json',
-            savePath: '{{lng}}.json',
+            loadPath: 'src/i18n/translations/{{lng}}.json',
+            savePath: 'src/i18n/translations/{{lng}}.json',
             jsonIndent: 2,
             lineEnding: '\n'
         },
         keySeparator: false,
         nsSeparator: false,
-    }
+    },
 };
